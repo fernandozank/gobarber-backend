@@ -10,9 +10,15 @@ The main purpose of this backend is to handle, for now things like:<br>
 </ul>
 
 ## :hammer_and_wrench: Development Tools Used
-<img src="./readme_assets/nodejs-brands.svg" />&nbsp;Node.js&emsp;&emsp;
-<img src="./readme_assets/typescript-brands.svg" />&nbsp;Typescript&emsp;&emsp;
-<img src="./readme_assets/docker-brands.svg" />&nbsp;Docker
+<p align="center" vertical-align="center">
+  <img src="./readme_assets/NODEjs.png" title="Node.js"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./readme_assets/TYPESCRIPT.png" title="Typescript"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="./readme_assets/DOCKER.png" title="Docker"/>
+</p>
+
+
 <br><br>
 
 <p><b>Node.js</b> environment to manage application settings;</p>
@@ -30,3 +36,4 @@ The main purpose of this backend is to handle, for now things like:<br>
 <b>yarn dev:server</b>
 </li>
 </ol>
+
