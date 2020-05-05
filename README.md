@@ -11,14 +11,7 @@ The main purpose of this backend is to handle, for now things like:<br>
 
 ## :hammer_and_wrench: Development Tools Used
 <div style="display: inline-block;">
-
-  <img src="./readme_assets/nodejs-brands.svg" />&nbsp;Node.js
-
-  <img src="./readme_assets/typescript-brands.svg" />&nbsp;Typescript
-
-  <img src="./readme_assets/docker-brands.svg" />&nbsp;Docker
-
-
+  <img src="./readme_assets/nodejs-brands.svg" />&nbsp;Node.js&emsp;&emsp;<img src="./readme_assets/typescript-brands.svg" />&nbsp;Typescript&emsp;&emsp;<img src="./readme_assets/docker-brands.svg" />&nbsp;Docker
 </div>
 <p><b>Node.js</b> environment to manage application settings;</p>
 <p><b>Typescript</b> usage for better comprehension of the code;</p>
