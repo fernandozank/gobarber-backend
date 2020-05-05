@@ -17,10 +17,6 @@ The main purpose of this backend is to handle, for now things like:<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="./readme_assets/DOCKER.png" title="Docker"/>
 </p>
-
-
-<br><br>
-
 <p><b>Node.js</b> environment to manage application settings;</p>
 <p><b>Typescript</b> usage for better comprehension of the code;</p>
 <p><b>Docker</b> environment to simulate a remote database;</p>
