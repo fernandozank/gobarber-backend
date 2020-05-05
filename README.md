@@ -36,10 +36,10 @@ The main purpose of this backend is to handle, for now things like:<br>
 
 <ol>
 <li>Clone this repository to your machine;</li>
-<li>Install dependencies using `yarn`
+<li>Install dependencies using <b>yarn</b>
 </li>
-<li>Maybe it will be necessary to setup and configure some docker container. If you have other place to store your data, remember to modify `ormconfig.json` file</li>
+<li>Maybe it will be necessary to setup and configure some docker container. If you have other place to store your data, remember to modify <b>ormconfig.json</b> file</li>
 <li>To start the devolpment server, execute on a terminal the following:
-`yarn dev:server`
+<b>yarn dev:server</b>
 </li>
 </ol>
