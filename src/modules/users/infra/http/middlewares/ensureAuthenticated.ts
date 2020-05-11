@@ -1,34 +1,37 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
 import AppError from '@shared/errors/AppError';
 
 import authConfig from '@config/auth';
 
-interface TokenPayload {
+interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
-
 }
 
-export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void{
+export default function ensureAuthenticated(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+): void {
   const authHeader = request.headers.authorization;
 
-  if(!authHeader){
+  if (!authHeader) {
     throw new AppError('Missing token', 401);
   }
 
   const [, token] = authHeader.split(' ');
 
-  try{
+  try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub } = decoded as ITokenPayload;
 
     request.user = {
       id: sub,
-    }
+    };
 
     return next();
   } catch {
