@@ -14,7 +14,7 @@ export default class AlterProviderFieldToProviderID1586882906127
       'appointments',
       new TableColumn({
         name: 'provider_id',
-        type: 'varchar',
+        type: 'uuid',
         isNullable: true,
       }),
     );

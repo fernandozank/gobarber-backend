@@ -3,7 +3,6 @@ import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
-
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -30,24 +29,21 @@ export default class ResetPasswordService {
     const userToken = await this.userTokensRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError('UserToken does not exist');
+      throw new AppError('User token does not exists');
     }
 
     const user = await this.usersRepository.findById(userToken.user_id);
 
     if (!user) {
-      throw new AppError('User does not exist');
+      throw new AppError('User does not exists');
     }
 
-    const tokenCreationDate = userToken.created_at;
-    const compareDate = addHours(tokenCreationDate, 2);
+    const tokenCreatedAt = userToken.created_at;
+    const compareDate = addHours(tokenCreatedAt, 2);
+
     if (isAfter(Date.now(), compareDate)) {
-      throw new AppError('Token Expired');
+      throw new AppError('Token expired');
     }
-
-    // if (differenceInHours(Date.now(), tokenCreationDate) > 2) {
-    //   throw new AppError('Token expired');
-    // }
 
     user.password = await this.hashProvider.generateHash(password);
 

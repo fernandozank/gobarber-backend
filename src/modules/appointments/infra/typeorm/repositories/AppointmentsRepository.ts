@@ -32,7 +32,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
         provider_id,
         date: Raw(
           (dateFieldName) =>
-            `DATE_FORMAT(${dateFieldName}, '%m-%Y') = '${parsedMonth}-${year}'`,
+            `TO_CHAR(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`, // for POSTGRES
+          // `DATE_FORMAT(${dateFieldName}, '%m-%Y') = '${parsedMonth}-${year}'`, //FOR MYSQL
         ),
       },
     });
@@ -53,7 +54,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
         provider_id,
         date: Raw(
           (dateFieldName) =>
-            `DATE_FORMAT(${dateFieldName}, '%d-%m-%Y') = '${parsedDay}-${parsedMonth}-${year}'`,
+            `TO_CHAR(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`, // for POSTGRES
+          // `DATE_FORMAT(, '%d-%m-%Y') = '${parsedDay}-${parsedMonth}-${year}'`, //FOR MYSQL
         ),
       },
     });
