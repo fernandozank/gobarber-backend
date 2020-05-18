@@ -1,11 +1,10 @@
 import { startOfHour, isBefore, getHours, format } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
-import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
-import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
@@ -22,10 +21,8 @@ class CreateAppointmentService {
     private appointmentsRepository: IAppointmentsRepository,
     @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
-    @inject('MailProvider')
-    private mailProvider: IMailProvider,
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -69,60 +66,17 @@ class CreateAppointmentService {
       content: `Novo agendamento para o dia ${dateFormated}`,
     });
 
-    const provider_info = await this.usersRepository.findById(provider_id);
-
-    if (!provider_info) {
-      throw new AppError('Provider not Found');
-    }
-
-    const emailTemplateProvider = path.resolve(
-      __dirname,
-      '..',
-      'views',
-      'create_appointment_provider.hbs',
-    );
-
-    await this.mailProvider.sendMail({
-      to: { name: provider_info.name, email: provider_info.email },
-      subject: 'Novo agendamento!',
-      templateData: {
-        file: emailTemplateProvider,
-        variables: {
-          name: provider_info.name,
-          data: dateFormated,
-        },
-      },
-    });
-
     await this.notificationsRepository.create({
       recipient_id: user_id,
       content: `Agendamento para o dia ${dateFormated} entregue com sucesso.`,
     });
 
-    const client_info = await this.usersRepository.findById(user_id);
-
-    if (!client_info) {
-      throw new AppError('Provider not Found');
-    }
-
-    const emailTemplateClient = path.resolve(
-      __dirname,
-      '..',
-      'views',
-      'create_appointment_client.hbs',
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        appointmentDate,
+        'yyyy-M-d',
+      )}`,
     );
-
-    await this.mailProvider.sendMail({
-      to: { name: client_info.name, email: client_info.email },
-      subject: 'Novo agendamento!',
-      templateData: {
-        file: emailTemplateClient,
-        variables: {
-          name: client_info.name,
-          data: dateFormated,
-        },
-      },
-    });
 
     return appointment;
   }

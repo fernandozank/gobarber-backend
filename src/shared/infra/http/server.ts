@@ -10,6 +10,7 @@ import { errors } from 'celebrate';
 
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
+import rateLimiter from './middlewares/rateLimiter';
 
 import routes from './routes';
 
@@ -20,6 +21,7 @@ const ucdir = uploadConfig.uploadsFolder;
 
 const app = express();
 
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(ucdir));

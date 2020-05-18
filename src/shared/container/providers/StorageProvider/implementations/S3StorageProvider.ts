@@ -24,8 +24,6 @@ export default class S3StorageProvider implements IStorageProvider {
       throw new AppError('File not Found', 404);
     }
 
-    console.log(ContentType);
-
     const fileContent = await fs.promises.readFile(originalPath);
 
     await this.client
